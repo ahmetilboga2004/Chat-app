@@ -1,1 +1,1 @@
-# Chat-app
+# ChatZen-App
