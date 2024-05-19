@@ -10,17 +10,15 @@ const userStore = useUserStore()
 const message = ref('')
 const messages = ref([])
 const localUsername = localStorage.getItem('username')
-const localAvatar = localStorage.getItem('avatar')
 
 onMounted(() => {
   socket.on('message', (msg) => {
     messages.value.push(msg)
-    console.log(msg)
   })
 })
 const sendMessage = () => {
   socket.emit('message', {
-    avatar: userStore.avatarUrl || localAvatar || defaultAvatar,
+    avatar: defaultAvatar,
     username: localUsername || userStore.username,
     message: message.value
   })
@@ -51,14 +49,14 @@ const sendMessage = () => {
             </template>
           </template>
         </div>
-        <div class="flex justify-between self-end items-center gap-4">
+        <div class="flex justify-between self-end items-center gap-2 lg:gap-4">
           <input
             type="text"
             @keyup.enter="sendMessage"
             v-model="message"
-            class="input input-bordered w-full"
+            class="input input-sm md:input-md input-bordered w-full"
           />
-          <button class="btn" @click="sendMessage">Send</button>
+          <button class="btn btn-sm md:btn-md" @click="sendMessage">Send</button>
         </div>
       </div>
     </div>
